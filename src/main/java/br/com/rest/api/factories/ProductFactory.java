@@ -20,6 +20,16 @@ public class ProductFactory {
         return productModel;
     }
 
+    public ProductModel makeProductModel(ProductModel productModel) {
+        productModel.add(linkTo(methodOn(ProductController.class).listProducts()).withSelfRel());
+        return productModel;
+    }
+
+    public ProductModel makeProductModel(ProductRecordDto productRecordDto, ProductModel productModel) {
+        BeanUtils.copyProperties(productRecordDto, productModel);
+        return productModel;
+    }
+
     public List<ProductModel> makeListProductModel(List<ProductModel> productModels){
         if(productModels.isEmpty()){
             throw new ProductNotFoundException("Products Not Found");
