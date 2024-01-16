@@ -35,13 +35,12 @@ public class ProductService {
         if(optionalProduct.isEmpty()) {
             throw new ProductNotFoundException("Product Not Found");
         }
-        return optionalProduct.get();
+        return productFactory.makeProductModel(optionalProduct.get());
     }
 
     public ProductModel update(UUID id, ProductRecordDto productRecordDto) {
         var productModel = this.findOne(id);
-        BeanUtils.copyProperties(productRecordDto, productModel);
-        return productRepositry.save(productModel);
+        return productRepositry.save(productFactory.makeProductModel(productRecordDto, productModel));
     }
 
     public void delete(UUID id) {
