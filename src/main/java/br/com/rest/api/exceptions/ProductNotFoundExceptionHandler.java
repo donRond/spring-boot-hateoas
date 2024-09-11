@@ -9,9 +9,10 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 @ControllerAdvice
 public class ProductNotFoundExceptionHandler extends ResponseEntityExceptionHandler {
+
     @ExceptionHandler(ProductNotFoundException.class)
     private ResponseEntity<Object> productNotFoundException(ProductNotFoundException exception) {
-        ErrorMessageRecordDto error = new ErrorMessageRecordDto(HttpStatus.NOT_FOUND, exception.getMessage());
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(new ErrorMessageRecordDto(HttpStatus.NOT_FOUND, exception.getMessage()));
     }
 }
